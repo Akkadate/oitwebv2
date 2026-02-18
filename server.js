@@ -1,13 +1,15 @@
 /* ============================================
-   NBU IT Website - Backend Server
+   NBU IT Website - Backend Server (Optimized)
    Node.js + Express
    ============================================ */
 
 const express = require('express');
 const fs = require('fs');
+const fsPromises = require('fs').promises;
 const path = require('path');
 const crypto = require('crypto');
 const multer = require('multer');
+const compression = require('compression');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -43,24 +45,49 @@ const upload = multer({
     }
 });
 
+// ============================================
 // Middleware
+// ============================================
+app.use(compression()); // Gzip compression — ลด bandwidth 60-70%
 app.use(express.json());
-app.use(express.static(__dirname)); // Serve static files
-app.use('/uploads', express.static(UPLOAD_DIR));
+
+// Static files with cache headers
+app.use(express.static(__dirname, {
+    maxAge: '1h',
+    etag: true
+}));
+app.use('/uploads', express.static(UPLOAD_DIR, {
+    maxAge: '7d',
+    etag: true
+}));
 
 // ============================================
-// Helper functions
+// In-memory cache for JSON data
 // ============================================
-function readJSON(filename) {
+const dataCache = {};
+const CACHE_TTL = 60 * 1000; // 1 minute
+
+async function readJSON(filename) {
+    const now = Date.now();
+    if (dataCache[filename] && (now - dataCache[filename].time) < CACHE_TTL) {
+        return dataCache[filename].data;
+    }
     const filepath = path.join(DATA_DIR, filename);
-    if (!fs.existsSync(filepath)) return [];
-    const raw = fs.readFileSync(filepath, 'utf-8');
-    return JSON.parse(raw);
+    try {
+        const raw = await fsPromises.readFile(filepath, 'utf-8');
+        const data = JSON.parse(raw);
+        dataCache[filename] = { data, time: now };
+        return data;
+    } catch (e) {
+        return [];
+    }
 }
 
-function writeJSON(filename, data) {
+async function writeJSON(filename, data) {
     const filepath = path.join(DATA_DIR, filename);
-    fs.writeFileSync(filepath, JSON.stringify(data, null, 4), 'utf-8');
+    await fsPromises.writeFile(filepath, JSON.stringify(data, null, 4), 'utf-8');
+    // Invalidate cache
+    delete dataCache[filename];
 }
 
 function hashPassword(password) {
@@ -75,16 +102,15 @@ function getNextId(items) {
 // ============================================
 // Auth middleware
 // ============================================
-function authMiddleware(req, res, next) {
+async function authMiddleware(req, res, next) {
     const token = req.headers['x-auth-token'];
     if (!token) {
         return res.status(401).json({ error: 'Unauthorized' });
     }
-    // Simple token validation (token = base64 of username:hash)
     try {
         const decoded = Buffer.from(token, 'base64').toString('utf-8');
         const [username, hash] = decoded.split(':');
-        const users = readJSON('users.json');
+        const users = await readJSON('users.json');
         const user = users.find(u => u.username === username && u.password === hash);
         if (!user) {
             return res.status(401).json({ error: 'Invalid token' });
@@ -97,11 +123,21 @@ function authMiddleware(req, res, next) {
 }
 
 // ============================================
+// Cache headers for API responses
+// ============================================
+function apiCache(seconds) {
+    return function (req, res, next) {
+        res.set('Cache-Control', 'public, max-age=' + seconds);
+        next();
+    };
+}
+
+// ============================================
 // AUTH API
 // ============================================
-app.post('/api/login', (req, res) => {
+app.post('/api/login', async (req, res) => {
     const { username, password } = req.body;
-    const users = readJSON('users.json');
+    const users = await readJSON('users.json');
     const hash = hashPassword(password);
     const user = users.find(u => u.username === username && u.password === hash);
 
@@ -117,9 +153,9 @@ app.post('/api/login', (req, res) => {
     });
 });
 
-app.post('/api/change-password', authMiddleware, (req, res) => {
+app.post('/api/change-password', authMiddleware, async (req, res) => {
     const { currentPassword, newPassword } = req.body;
-    const users = readJSON('users.json');
+    const users = await readJSON('users.json');
     const userIndex = users.findIndex(u => u.id === req.user.id);
 
     if (hashPassword(currentPassword) !== users[userIndex].password) {
@@ -127,63 +163,63 @@ app.post('/api/change-password', authMiddleware, (req, res) => {
     }
 
     users[userIndex].password = hashPassword(newPassword);
-    writeJSON('users.json', users);
+    await writeJSON('users.json', users);
 
     const token = Buffer.from(users[userIndex].username + ':' + users[userIndex].password).toString('base64');
     res.json({ success: true, token });
 });
 
 // ============================================
-// GENERIC CRUD API FACTORY
+// GENERIC CRUD API FACTORY (Async)
 // ============================================
 function createCrudRoutes(resourceName, filename) {
     const router = express.Router();
 
-    // GET all (public)
-    router.get('/', (req, res) => {
-        const items = readJSON(filename);
+    // GET all (public) — with cache
+    router.get('/', apiCache(60), async (req, res) => {
+        const items = await readJSON(filename);
         res.json(items);
     });
 
-    // GET one (public)
-    router.get('/:id', (req, res) => {
-        const items = readJSON(filename);
+    // GET one (public) — with cache
+    router.get('/:id', apiCache(60), async (req, res) => {
+        const items = await readJSON(filename);
         const item = items.find(i => i.id === parseInt(req.params.id));
         if (!item) return res.status(404).json({ error: 'Not found' });
         res.json(item);
     });
 
     // CREATE (protected)
-    router.post('/', authMiddleware, (req, res) => {
-        const items = readJSON(filename);
+    router.post('/', authMiddleware, async (req, res) => {
+        const items = await readJSON(filename);
         const newItem = {
             id: getNextId(items),
             ...req.body
         };
         items.push(newItem);
-        writeJSON(filename, items);
+        await writeJSON(filename, items);
         res.status(201).json(newItem);
     });
 
     // UPDATE (protected)
-    router.put('/:id', authMiddleware, (req, res) => {
-        const items = readJSON(filename);
+    router.put('/:id', authMiddleware, async (req, res) => {
+        const items = await readJSON(filename);
         const index = items.findIndex(i => i.id === parseInt(req.params.id));
         if (index === -1) return res.status(404).json({ error: 'Not found' });
 
         items[index] = { ...items[index], ...req.body, id: items[index].id };
-        writeJSON(filename, items);
+        await writeJSON(filename, items);
         res.json(items[index]);
     });
 
     // DELETE (protected)
-    router.delete('/:id', authMiddleware, (req, res) => {
-        let items = readJSON(filename);
+    router.delete('/:id', authMiddleware, async (req, res) => {
+        let items = await readJSON(filename);
         const index = items.findIndex(i => i.id === parseInt(req.params.id));
         if (index === -1) return res.status(404).json({ error: 'Not found' });
 
         const deleted = items.splice(index, 1)[0];
-        writeJSON(filename, items);
+        await writeJSON(filename, items);
         res.json({ success: true, deleted });
     });
 
@@ -216,12 +252,14 @@ app.post('/api/upload', authMiddleware, upload.single('file'), (req, res) => {
 // ============================================
 // DASHBOARD STATS API
 // ============================================
-app.get('/api/stats', authMiddleware, (req, res) => {
-    const news = readJSON('news.json');
-    const announcements = readJSON('announcements.json');
-    const documents = readJSON('documents.json');
-    const faq = readJSON('faq.json');
-    const services = readJSON('services.json');
+app.get('/api/stats', authMiddleware, async (req, res) => {
+    const [news, announcements, documents, faq, services] = await Promise.all([
+        readJSON('news.json'),
+        readJSON('announcements.json'),
+        readJSON('documents.json'),
+        readJSON('faq.json'),
+        readJSON('services.json')
+    ]);
 
     res.json({
         news: news.length,
