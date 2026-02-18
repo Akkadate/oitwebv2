@@ -5,15 +5,15 @@
 
 require('dotenv').config();
 const express = require('express');
-const path = require('path');
 const crypto = require('crypto');
 const multer = require('multer');
 const compression = require('compression');
 const { Pool } = require('pg');
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const UPLOAD_DIR = path.join(__dirname, 'uploads');
 
 // ============================================
 // PostgreSQL Connection
@@ -29,34 +29,26 @@ pool.query('SELECT NOW()').then(() => {
     console.error('  Database: Connection failed -', err.message);
 });
 
-// Ensure uploads directory exists
-const fs = require('fs');
-if (!fs.existsSync(UPLOAD_DIR)) {
-    fs.mkdirSync(UPLOAD_DIR, { recursive: true });
-}
+// ============================================
+// Cloudinary + Multer config
+// ============================================
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
-// Multer config for file uploads
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => cb(null, UPLOAD_DIR),
-    filename: (req, file, cb) => {
-        const ext = path.extname(file.originalname);
-        const name = Date.now() + '-' + Math.round(Math.random() * 1000) + ext;
-        cb(null, name);
+const storage = new CloudinaryStorage({
+    cloudinary,
+    params: {
+        folder: 'nbu-it',
+        allowed_formats: ['jpg', 'jpeg', 'png', 'gif', 'webp', 'pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx'],
+        resource_type: 'auto'
     }
 });
 const upload = multer({
     storage,
-    limits: { fileSize: 10 * 1024 * 1024 },
-    fileFilter: (req, file, cb) => {
-        const allowed = /jpeg|jpg|png|gif|webp|pdf|doc|docx|xls|xlsx|ppt|pptx/;
-        const ext = allowed.test(path.extname(file.originalname).toLowerCase());
-        const mime = allowed.test(file.mimetype);
-        if (ext || mime) {
-            cb(null, true);
-        } else {
-            cb(new Error('File type not allowed'));
-        }
-    }
+    limits: { fileSize: 10 * 1024 * 1024 }
 });
 
 // ============================================
@@ -67,10 +59,6 @@ app.use(express.json());
 
 app.use(express.static(__dirname, {
     maxAge: '1h',
-    etag: true
-}));
-app.use('/uploads', express.static(UPLOAD_DIR, {
-    maxAge: '7d',
     etag: true
 }));
 
@@ -258,7 +246,7 @@ app.post('/api/upload', authMiddleware, upload.single('file'), (req, res) => {
     res.json({
         success: true,
         filename: req.file.filename,
-        url: '/uploads/' + req.file.filename,
+        url: req.file.path,
         originalName: req.file.originalname,
         size: req.file.size
     });
