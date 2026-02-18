@@ -1,22 +1,36 @@
 /* ============================================
-   NBU IT Website - Backend Server (Optimized)
-   Node.js + Express
+   NBU IT Website - Backend Server
+   Node.js + Express + PostgreSQL (Supabase)
    ============================================ */
 
+require('dotenv').config();
 const express = require('express');
-const fs = require('fs');
-const fsPromises = require('fs').promises;
 const path = require('path');
 const crypto = require('crypto');
 const multer = require('multer');
 const compression = require('compression');
+const { Pool } = require('pg');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const DATA_DIR = path.join(__dirname, 'data');
 const UPLOAD_DIR = path.join(__dirname, 'uploads');
 
+// ============================================
+// PostgreSQL Connection
+// ============================================
+const pool = new Pool({
+    connectionString: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false }
+});
+
+pool.query('SELECT NOW()').then(() => {
+    console.log('  Database: Connected to PostgreSQL');
+}).catch(err => {
+    console.error('  Database: Connection failed -', err.message);
+});
+
 // Ensure uploads directory exists
+const fs = require('fs');
 if (!fs.existsSync(UPLOAD_DIR)) {
     fs.mkdirSync(UPLOAD_DIR, { recursive: true });
 }
@@ -32,7 +46,7 @@ const storage = multer.diskStorage({
 });
 const upload = multer({
     storage,
-    limits: { fileSize: 10 * 1024 * 1024 }, // 10MB
+    limits: { fileSize: 10 * 1024 * 1024 },
     fileFilter: (req, file, cb) => {
         const allowed = /jpeg|jpg|png|gif|webp|pdf|doc|docx|xls|xlsx|ppt|pptx/;
         const ext = allowed.test(path.extname(file.originalname).toLowerCase());
@@ -48,10 +62,9 @@ const upload = multer({
 // ============================================
 // Middleware
 // ============================================
-app.use(compression()); // Gzip compression — ลด bandwidth 60-70%
+app.use(compression());
 app.use(express.json());
 
-// Static files with cache headers
 app.use(express.static(__dirname, {
     maxAge: '1h',
     etag: true
@@ -62,41 +75,10 @@ app.use('/uploads', express.static(UPLOAD_DIR, {
 }));
 
 // ============================================
-// In-memory cache for JSON data
+// Helper functions
 // ============================================
-const dataCache = {};
-const CACHE_TTL = 60 * 1000; // 1 minute
-
-async function readJSON(filename) {
-    const now = Date.now();
-    if (dataCache[filename] && (now - dataCache[filename].time) < CACHE_TTL) {
-        return dataCache[filename].data;
-    }
-    const filepath = path.join(DATA_DIR, filename);
-    try {
-        const raw = await fsPromises.readFile(filepath, 'utf-8');
-        const data = JSON.parse(raw);
-        dataCache[filename] = { data, time: now };
-        return data;
-    } catch (e) {
-        return [];
-    }
-}
-
-async function writeJSON(filename, data) {
-    const filepath = path.join(DATA_DIR, filename);
-    await fsPromises.writeFile(filepath, JSON.stringify(data, null, 4), 'utf-8');
-    // Invalidate cache
-    delete dataCache[filename];
-}
-
 function hashPassword(password) {
     return crypto.createHash('sha256').update(password).digest('hex');
-}
-
-function getNextId(items) {
-    if (items.length === 0) return 1;
-    return Math.max(...items.map(item => item.id)) + 1;
 }
 
 // ============================================
@@ -110,12 +92,14 @@ async function authMiddleware(req, res, next) {
     try {
         const decoded = Buffer.from(token, 'base64').toString('utf-8');
         const [username, hash] = decoded.split(':');
-        const users = await readJSON('users.json');
-        const user = users.find(u => u.username === username && u.password === hash);
-        if (!user) {
+        const result = await pool.query(
+            'SELECT * FROM users WHERE username = $1 AND password = $2',
+            [username, hash]
+        );
+        if (result.rows.length === 0) {
             return res.status(401).json({ error: 'Invalid token' });
         }
-        req.user = user;
+        req.user = result.rows[0];
         next();
     } catch (e) {
         return res.status(401).json({ error: 'Invalid token' });
@@ -123,7 +107,7 @@ async function authMiddleware(req, res, next) {
 }
 
 // ============================================
-// Cache headers for API responses
+// Cache headers for API
 // ============================================
 function apiCache(seconds) {
     return function (req, res, next) {
@@ -137,14 +121,17 @@ function apiCache(seconds) {
 // ============================================
 app.post('/api/login', async (req, res) => {
     const { username, password } = req.body;
-    const users = await readJSON('users.json');
     const hash = hashPassword(password);
-    const user = users.find(u => u.username === username && u.password === hash);
+    const result = await pool.query(
+        'SELECT * FROM users WHERE username = $1 AND password = $2',
+        [username, hash]
+    );
 
-    if (!user) {
+    if (result.rows.length === 0) {
         return res.status(401).json({ error: 'Invalid username or password' });
     }
 
+    const user = result.rows[0];
     const token = Buffer.from(user.username + ':' + user.password).toString('base64');
     res.json({
         success: true,
@@ -155,83 +142,111 @@ app.post('/api/login', async (req, res) => {
 
 app.post('/api/change-password', authMiddleware, async (req, res) => {
     const { currentPassword, newPassword } = req.body;
-    const users = await readJSON('users.json');
-    const userIndex = users.findIndex(u => u.id === req.user.id);
 
-    if (hashPassword(currentPassword) !== users[userIndex].password) {
+    if (hashPassword(currentPassword) !== req.user.password) {
         return res.status(400).json({ error: 'Current password is incorrect' });
     }
 
-    users[userIndex].password = hashPassword(newPassword);
-    await writeJSON('users.json', users);
+    const newHash = hashPassword(newPassword);
+    await pool.query('UPDATE users SET password = $1 WHERE id = $2', [newHash, req.user.id]);
 
-    const token = Buffer.from(users[userIndex].username + ':' + users[userIndex].password).toString('base64');
+    const token = Buffer.from(req.user.username + ':' + newHash).toString('base64');
     res.json({ success: true, token });
 });
 
 // ============================================
-// GENERIC CRUD API FACTORY (Async)
+// GENERIC CRUD API FACTORY (PostgreSQL)
 // ============================================
-function createCrudRoutes(resourceName, filename) {
+function createCrudRoutes(tableName) {
     const router = express.Router();
 
-    // GET all (public) — with cache
+    // GET all (public)
     router.get('/', apiCache(60), async (req, res) => {
-        const items = await readJSON(filename);
-        res.json(items);
+        try {
+            const result = await pool.query(`SELECT * FROM ${tableName} ORDER BY id`);
+            res.json(result.rows);
+        } catch (e) {
+            res.status(500).json({ error: e.message });
+        }
     });
 
-    // GET one (public) — with cache
+    // GET one (public)
     router.get('/:id', apiCache(60), async (req, res) => {
-        const items = await readJSON(filename);
-        const item = items.find(i => i.id === parseInt(req.params.id));
-        if (!item) return res.status(404).json({ error: 'Not found' });
-        res.json(item);
+        try {
+            const result = await pool.query(`SELECT * FROM ${tableName} WHERE id = $1`, [req.params.id]);
+            if (result.rows.length === 0) return res.status(404).json({ error: 'Not found' });
+            res.json(result.rows[0]);
+        } catch (e) {
+            res.status(500).json({ error: e.message });
+        }
     });
 
     // CREATE (protected)
     router.post('/', authMiddleware, async (req, res) => {
-        const items = await readJSON(filename);
-        const newItem = {
-            id: getNextId(items),
-            ...req.body
-        };
-        items.push(newItem);
-        await writeJSON(filename, items);
-        res.status(201).json(newItem);
+        try {
+            const data = req.body;
+            const keys = Object.keys(data);
+            const values = Object.values(data);
+            const placeholders = keys.map((_, i) => `$${i + 1}`).join(', ');
+            const columns = keys.map(k => k === 'order' ? `"order"` : k).join(', ');
+
+            const result = await pool.query(
+                `INSERT INTO ${tableName} (${columns}) VALUES (${placeholders}) RETURNING *`,
+                values
+            );
+            res.status(201).json(result.rows[0]);
+        } catch (e) {
+            res.status(500).json({ error: e.message });
+        }
     });
 
     // UPDATE (protected)
     router.put('/:id', authMiddleware, async (req, res) => {
-        const items = await readJSON(filename);
-        const index = items.findIndex(i => i.id === parseInt(req.params.id));
-        if (index === -1) return res.status(404).json({ error: 'Not found' });
+        try {
+            const data = req.body;
+            delete data.id;
+            const keys = Object.keys(data);
+            const values = Object.values(data);
+            const setClause = keys.map((k, i) => {
+                const col = k === 'order' ? `"order"` : k;
+                return `${col} = $${i + 1}`;
+            }).join(', ');
 
-        items[index] = { ...items[index], ...req.body, id: items[index].id };
-        await writeJSON(filename, items);
-        res.json(items[index]);
+            values.push(req.params.id);
+            const result = await pool.query(
+                `UPDATE ${tableName} SET ${setClause} WHERE id = $${values.length} RETURNING *`,
+                values
+            );
+            if (result.rows.length === 0) return res.status(404).json({ error: 'Not found' });
+            res.json(result.rows[0]);
+        } catch (e) {
+            res.status(500).json({ error: e.message });
+        }
     });
 
     // DELETE (protected)
     router.delete('/:id', authMiddleware, async (req, res) => {
-        let items = await readJSON(filename);
-        const index = items.findIndex(i => i.id === parseInt(req.params.id));
-        if (index === -1) return res.status(404).json({ error: 'Not found' });
-
-        const deleted = items.splice(index, 1)[0];
-        await writeJSON(filename, items);
-        res.json({ success: true, deleted });
+        try {
+            const result = await pool.query(
+                `DELETE FROM ${tableName} WHERE id = $1 RETURNING *`,
+                [req.params.id]
+            );
+            if (result.rows.length === 0) return res.status(404).json({ error: 'Not found' });
+            res.json({ success: true, deleted: result.rows[0] });
+        } catch (e) {
+            res.status(500).json({ error: e.message });
+        }
     });
 
     return router;
 }
 
 // Register CRUD routes
-app.use('/api/news', createCrudRoutes('news', 'news.json'));
-app.use('/api/announcements', createCrudRoutes('announcements', 'announcements.json'));
-app.use('/api/documents', createCrudRoutes('documents', 'documents.json'));
-app.use('/api/faq', createCrudRoutes('faq', 'faq.json'));
-app.use('/api/services', createCrudRoutes('services', 'services.json'));
+app.use('/api/news', createCrudRoutes('news'));
+app.use('/api/announcements', createCrudRoutes('announcements'));
+app.use('/api/documents', createCrudRoutes('documents'));
+app.use('/api/faq', createCrudRoutes('faq'));
+app.use('/api/services', createCrudRoutes('services'));
 
 // ============================================
 // FILE UPLOAD API
@@ -253,24 +268,28 @@ app.post('/api/upload', authMiddleware, upload.single('file'), (req, res) => {
 // DASHBOARD STATS API
 // ============================================
 app.get('/api/stats', authMiddleware, async (req, res) => {
-    const [news, announcements, documents, faq, services] = await Promise.all([
-        readJSON('news.json'),
-        readJSON('announcements.json'),
-        readJSON('documents.json'),
-        readJSON('faq.json'),
-        readJSON('services.json')
-    ]);
+    try {
+        const [news, announcements, documents, faq, services] = await Promise.all([
+            pool.query('SELECT COUNT(*) as total, COUNT(*) FILTER (WHERE status = $1) as published FROM news', ['published']),
+            pool.query('SELECT COUNT(*) as total, COUNT(*) FILTER (WHERE status = $1) as active FROM announcements', ['active']),
+            pool.query('SELECT COUNT(*) as total FROM documents'),
+            pool.query('SELECT COUNT(*) as total FROM faq'),
+            pool.query('SELECT COUNT(*) as total, COUNT(*) FILTER (WHERE status = $1) as published FROM services', ['published'])
+        ]);
 
-    res.json({
-        news: news.length,
-        newsPublished: news.filter(n => n.status === 'published').length,
-        announcements: announcements.length,
-        announcementsActive: announcements.filter(a => a.status === 'active').length,
-        documents: documents.length,
-        faq: faq.length,
-        services: services.length,
-        servicesPublished: services.filter(s => s.status === 'published').length
-    });
+        res.json({
+            news: parseInt(news.rows[0].total),
+            newsPublished: parseInt(news.rows[0].published),
+            announcements: parseInt(announcements.rows[0].total),
+            announcementsActive: parseInt(announcements.rows[0].active),
+            documents: parseInt(documents.rows[0].total),
+            faq: parseInt(faq.rows[0].total),
+            services: parseInt(services.rows[0].total),
+            servicesPublished: parseInt(services.rows[0].published)
+        });
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
 });
 
 // ============================================
