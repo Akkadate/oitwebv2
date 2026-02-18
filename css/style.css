@@ -1265,3 +1265,88 @@ img {
         justify-content: center;
     }
 }
+
+/* ============================================
+   CALENDAR SECTION
+   ============================================ */
+.calendar-section {
+    background: var(--nbu-light-bg);
+}
+
+.calendar-wrapper {
+    background: var(--nbu-white);
+    border-radius: 12px;
+    box-shadow: var(--nbu-shadow);
+    overflow: hidden;
+}
+
+.calendar-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background: linear-gradient(135deg, var(--nbu-primary), var(--nbu-secondary));
+    color: var(--nbu-white);
+}
+
+.calendar-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.calendar-info i {
+    font-size: 18px;
+    color: var(--nbu-gold);
+}
+
+.btn-calendar-open {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 18px;
+    background: rgba(255, 255, 255, 0.15);
+    color: var(--nbu-white);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: var(--nbu-transition);
+}
+
+.btn-calendar-open:hover {
+    background: rgba(255, 255, 255, 0.25);
+    color: var(--nbu-white);
+}
+
+.calendar-embed {
+    position: relative;
+    width: 100%;
+}
+
+.calendar-embed iframe {
+    display: block;
+    width: 100%;
+    height: 600px;
+}
+
+@media (max-width: 768px) {
+    .calendar-toolbar {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+        padding: 14px 16px;
+    }
+
+    .calendar-embed iframe {
+        height: 450px;
+    }
+}
+
+@media (max-width: 576px) {
+    .calendar-embed iframe {
+        height: 380px;
+    }
+}
