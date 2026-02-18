@@ -1,0 +1,46 @@
+[
+    {
+        "id": 1,
+        "title_th": "แผนรับมือเหตุการณ์ด้านความมั่นคงปลอดภัยไซเบอร์",
+        "title_en": "Cybersecurity Incident Response Plan",
+        "description_th": "Cybersecurity Incident Response Plan",
+        "description_en": "Cybersecurity Incident Response Plan",
+        "icon": "fas fa-shield-virus",
+        "file_url": "#",
+        "category": "cybersecurity",
+        "status": "published"
+    },
+    {
+        "id": 2,
+        "title_th": "นโยบายด้านความมั่นคงปลอดภัยไซเบอร์",
+        "title_en": "Cybersecurity Policy",
+        "description_th": "Cybersecurity Policy",
+        "description_en": "Cybersecurity Policy",
+        "icon": "fas fa-file-shield",
+        "file_url": "#",
+        "category": "cybersecurity",
+        "status": "published"
+    },
+    {
+        "id": 3,
+        "title_th": "นโยบายคุ้มครองข้อมูลส่วนบุคคล (PDPA)",
+        "title_en": "Privacy Policy (PDPA)",
+        "description_th": "Privacy Policy",
+        "description_en": "Privacy Policy",
+        "icon": "fas fa-lock",
+        "file_url": "#",
+        "category": "policy",
+        "status": "published"
+    },
+    {
+        "id": 4,
+        "title_th": "รายงานประจำปี สำนักเทคโนโลยีสารสนเทศ",
+        "title_en": "Annual Report - Office of Information Technology",
+        "description_th": "Annual Report",
+        "description_en": "Annual Report",
+        "icon": "fas fa-chart-line",
+        "file_url": "#",
+        "category": "report",
+        "status": "published"
+    }
+]

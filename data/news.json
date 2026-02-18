@@ -1,0 +1,72 @@
+[
+    {
+        "id": 1,
+        "title_th": "แนวปฏิบัติที่ดีในการรักษาความปลอดภัยข้อมูลส่วนบุคคล",
+        "title_en": "Best Practices for Personal Data Protection",
+        "excerpt_th": "สำนักเทคโนโลยีสารสนเทศแนะนำแนวปฏิบัติที่ดีในการรักษาความปลอดภัยข้อมูลส่วนบุคคลของบุคลากรและนักศึกษา เพื่อป้องกันการรั่วไหลของข้อมูล",
+        "excerpt_en": "IT Office recommends best practices for protecting personal data of staff and students to prevent data leakage.",
+        "content_th": "<p>สำนักเทคโนโลยีสารสนเทศ มหาวิทยาลัยนอร์ทกรุงเทพ ได้จัดทำแนวปฏิบัติที่ดีในการรักษาความปลอดภัยข้อมูลส่วนบุคคล เพื่อให้บุคลากรและนักศึกษาสามารถปกป้องข้อมูลของตนเองได้อย่างมีประสิทธิภาพ</p><h3>แนวปฏิบัติสำคัญ</h3><ul><li><strong>ใช้รหัสผ่านที่แข็งแรง</strong> — ควรมีความยาวอย่างน้อย 12 ตัวอักษร ประกอบด้วยตัวอักษรพิมพ์ใหญ่ พิมพ์เล็ก ตัวเลข และอักขระพิเศษ</li><li><strong>เปิดใช้งาน Two-Factor Authentication (2FA)</strong> — เพิ่มความปลอดภัยอีกชั้นให้กับบัญชีผู้ใช้งาน</li><li><strong>ระวังอีเมลหลอกลวง (Phishing)</strong> — ห้ามคลิกลิงก์หรือดาวน์โหลดไฟล์แนบจากอีเมลที่ไม่น่าเชื่อถือ</li><li><strong>อัปเดตซอฟต์แวร์เสมอ</strong> — ติดตั้ง Windows Update และอัปเดตโปรแกรมป้องกันไวรัสอย่างสม่ำเสมอ</li><li><strong>ไม่เปิดเผยข้อมูลส่วนบุคคล</strong> — ไม่แชร์รหัสผ่าน หมายเลขบัตรประชาชน หรือข้อมูลทางการเงินผ่านช่องทางที่ไม่ปลอดภัย</li></ul><h3>สิ่งที่ควรทำเมื่อสงสัยว่าข้อมูลรั่วไหล</h3><p>หากสงสัยว่าข้อมูลส่วนบุคคลของท่านถูกเข้าถึงโดยไม่ได้รับอนุญาต ให้ดำเนินการดังนี้:</p><ol><li>เปลี่ยนรหัสผ่านทันที</li><li>แจ้งสำนักเทคโนโลยีสารสนเทศ ผ่านระบบแจ้งปัญหา IT หรือโทร 02-972-7200</li><li>ตรวจสอบกิจกรรมที่ผิดปกติในบัญชีของท่าน</li></ol><p>สามารถดาวน์โหลดคู่มือฉบับเต็มได้ที่หน้าเอกสารและสิ่งพิมพ์ หรือติดต่อสำนักเทคโนโลยีสารสนเทศเพื่อขอข้อมูลเพิ่มเติม</p>",
+        "content_en": "<p>The Office of Information Technology, North Bangkok University, has prepared best practices for personal data protection to help staff and students effectively safeguard their information.</p><h3>Key Practices</h3><ul><li><strong>Use strong passwords</strong> — At least 12 characters with uppercase, lowercase, numbers, and special characters</li><li><strong>Enable Two-Factor Authentication (2FA)</strong></li><li><strong>Beware of phishing emails</strong></li><li><strong>Keep software updated</strong></li><li><strong>Do not disclose personal information</strong> through insecure channels</li></ul>",
+        "image": "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=600&q=80",
+        "date": "2026-02-15",
+        "category": "security",
+        "featured": true,
+        "status": "published"
+    },
+    {
+        "id": 2,
+        "title_th": "เปิดรับสมัครอบรม \"การใช้งาน Google Workspace\" รุ่นที่ 3",
+        "title_en": "Registration Open: Google Workspace Training Batch 3",
+        "excerpt_th": "สำนักเทคโนโลยีสารสนเทศเปิดรับสมัครอบรมการใช้งาน Google Workspace สำหรับบุคลากร เพื่อเพิ่มประสิทธิภาพการทำงานร่วมกัน",
+        "excerpt_en": "IT Office opens registration for Google Workspace training for staff to enhance collaborative work efficiency.",
+        "content_th": "<p>สำนักเทคโนโลยีสารสนเทศ เปิดรับสมัครโครงการอบรมเชิงปฏิบัติการ <strong>\"การใช้งาน Google Workspace เพื่อเพิ่มประสิทธิภาพการทำงาน\"</strong> รุ่นที่ 3 สำหรับบุคลากรมหาวิทยาลัยนอร์ทกรุงเทพ</p><h3>รายละเอียดการอบรม</h3><ul><li><strong>วันที่:</strong> วันพุธที่ 26 กุมภาพันธ์ 2569</li><li><strong>เวลา:</strong> 09.00 - 16.00 น.</li><li><strong>สถานที่:</strong> ห้องปฏิบัติการคอมพิวเตอร์ ชั้น 4 อาคารสำนักเทคโนโลยีสารสนเทศ</li><li><strong>จำนวนรับ:</strong> 30 คน</li></ul><h3>หัวข้อการอบรม</h3><ol><li>Google Drive — การจัดเก็บและแชร์ไฟล์อย่างมีประสิทธิภาพ</li><li>Google Docs, Sheets, Slides — การทำงานร่วมกันแบบ Real-time</li><li>Google Meet — การประชุมออนไลน์</li><li>Google Calendar — การจัดตารางงานและนัดหมาย</li><li>Google Forms — การสร้างแบบสอบถามและแบบประเมิน</li></ol><h3>วิธีสมัคร</h3><p>สมัครได้ที่ลิงก์ Google Forms ด้านล่าง หรือติดต่อสำนักเทคโนโลยีสารสนเทศ หมดเขตรับสมัครวันที่ 24 กุมภาพันธ์ 2569</p>",
+        "content_en": "<p>The Office of Information Technology opens registration for <strong>\"Google Workspace for Work Efficiency\"</strong> Training Batch 3 for North Bangkok University staff.</p><h3>Training Details</h3><ul><li><strong>Date:</strong> Wednesday, February 26, 2026</li><li><strong>Time:</strong> 09:00 - 16:00</li><li><strong>Location:</strong> Computer Lab, 4th Floor, IT Building</li><li><strong>Capacity:</strong> 30 participants</li></ul>",
+        "image": "https://images.unsplash.com/photo-1588196749597-9ff075ee6b5b?w=600&q=80",
+        "date": "2026-02-10",
+        "category": "training",
+        "featured": true,
+        "status": "published"
+    },
+    {
+        "id": 3,
+        "title_th": "แจ้งปิดปรับปรุงระบบเครือข่ายชั่วคราว วันเสาร์ที่ 8 กุมภาพันธ์",
+        "title_en": "Temporary Network Maintenance on Saturday, February 8",
+        "excerpt_th": "สำนักเทคโนโลยีสารสนเทศจะทำการปิดปรับปรุงระบบเครือข่ายชั่วคราว เพื่ออัปเกรดอุปกรณ์ Firewall และเพิ่มประสิทธิภาพ",
+        "excerpt_en": "IT Office will temporarily shut down the network for maintenance to upgrade Firewall equipment and improve performance.",
+        "content_th": "<p>สำนักเทคโนโลยีสารสนเทศ ขอแจ้งให้ทราบว่า จะมีการ<strong>ปิดปรับปรุงระบบเครือข่ายชั่วคราว</strong> เพื่ออัปเกรดอุปกรณ์ Firewall และเพิ่มประสิทธิภาพระบบเครือข่ายโดยรวม</p><h3>รายละเอียด</h3><ul><li><strong>วันที่:</strong> วันเสาร์ที่ 8 กุมภาพันธ์ 2569</li><li><strong>เวลา:</strong> 00.00 - 06.00 น. (6 ชั่วโมง)</li><li><strong>ผลกระทบ:</strong> ไม่สามารถใช้งานอินเทอร์เน็ตและระบบเครือข่ายภายในมหาวิทยาลัยได้ในช่วงเวลาดังกล่าว</li></ul><h3>ระบบที่ได้รับผลกระทบ</h3><ol><li>ระบบอินเทอร์เน็ตทั้งหมด (Wi-Fi และ LAN)</li><li>ระบบอีเมลมหาวิทยาลัย</li><li>ระบบ VPN</li><li>เว็บไซต์มหาวิทยาลัย</li></ol><p>ขออภัยในความไม่สะดวก และขอขอบคุณในความเข้าใจ หากมีข้อสงสัยสามารถติดต่อสำนักเทคโนโลยีสารสนเทศ โทร 02-972-7200</p>",
+        "content_en": "<p>The Office of Information Technology announces a <strong>temporary network shutdown</strong> to upgrade Firewall equipment and improve overall network performance.</p><h3>Details</h3><ul><li><strong>Date:</strong> Saturday, February 8, 2026</li><li><strong>Time:</strong> 00:00 - 06:00 (6 hours)</li><li><strong>Impact:</strong> Internet and internal network will be unavailable during this period</li></ul>",
+        "image": "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&q=80",
+        "date": "2026-02-05",
+        "category": "maintenance",
+        "featured": true,
+        "status": "published"
+    },
+    {
+        "id": 4,
+        "title_th": "โครงการอบรม Cybersecurity Awareness",
+        "title_en": "Cybersecurity Awareness Training Program",
+        "excerpt_th": "เสริมสร้างความตระหนักรู้ด้านความปลอดภัยไซเบอร์สำหรับบุคลากรมหาวิทยาลัย",
+        "excerpt_en": "Enhancing cybersecurity awareness for university staff.",
+        "content_th": "<p>สำนักเทคโนโลยีสารสนเทศ ขอเชิญชวนบุคลากรทุกท่านเข้าร่วม<strong>โครงการอบรม Cybersecurity Awareness</strong> เพื่อเสริมสร้างความตระหนักรู้ด้านความปลอดภัยไซเบอร์</p><h3>หัวข้อการอบรม</h3><ul><li>ภัยคุกคามไซเบอร์ในปัจจุบัน (Ransomware, Phishing, Social Engineering)</li><li>วิธีสังเกตและป้องกันอีเมลหลอกลวง</li><li>การจัดการรหัสผ่านอย่างปลอดภัย</li><li>พ.ร.บ. คุ้มครองข้อมูลส่วนบุคคล (PDPA) สิ่งที่ต้องรู้</li><li>Workshop: จำลองสถานการณ์ Phishing Attack</li></ul><h3>รายละเอียด</h3><ul><li><strong>วันที่:</strong> วันศุกร์ที่ 21 กุมภาพันธ์ 2569</li><li><strong>เวลา:</strong> 09.00 - 12.00 น.</li><li><strong>สถานที่:</strong> ห้องประชุมใหญ่ ชั้น 5 อาคารอธิการบดี</li><li><strong>วิทยากร:</strong> ผู้เชี่ยวชาญด้าน Cybersecurity จาก NCSA</li></ul><p>การอบรมนี้นับเป็นกิจกรรมพัฒนาบุคลากรประจำปี สมัครเข้าร่วมได้ตั้งแต่วันนี้ถึง 19 กุมภาพันธ์ 2569</p>",
+        "content_en": "<p>The Office of Information Technology invites all staff to join the <strong>Cybersecurity Awareness Training Program</strong>.</p><h3>Topics</h3><ul><li>Current cyber threats (Ransomware, Phishing, Social Engineering)</li><li>How to identify and prevent phishing emails</li><li>Password management best practices</li><li>PDPA essentials</li><li>Workshop: Simulated Phishing Attack</li></ul>",
+        "image": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80",
+        "date": "2026-02-12",
+        "category": "training",
+        "featured": true,
+        "status": "published"
+    },
+    {
+        "id": 5,
+        "title_th": "เปิดให้บริการ Microsoft 365 Education",
+        "title_en": "Microsoft 365 Education Now Available",
+        "excerpt_th": "บุคลากรและนักศึกษาสามารถใช้งาน Microsoft 365 ได้ฟรี",
+        "excerpt_en": "Staff and students can use Microsoft 365 for free.",
+        "content_th": "<p>สำนักเทคโนโลยีสารสนเทศ ขอแจ้งให้ทราบว่า มหาวิทยาลัยนอร์ทกรุงเทพได้จัดหาสิทธิ์การใช้งาน <strong>Microsoft 365 Education</strong> สำหรับบุคลากรและนักศึกษาทุกคน โดยไม่มีค่าใช้จ่าย</p><h3>สิ่งที่ได้รับ</h3><ul><li><strong>Microsoft Office:</strong> Word, Excel, PowerPoint, Outlook (ติดตั้งบนเครื่องได้สูงสุด 5 อุปกรณ์)</li><li><strong>OneDrive:</strong> พื้นที่เก็บข้อมูลบนคลาวด์ 1 TB</li><li><strong>Microsoft Teams:</strong> สำหรับการเรียนการสอนและประชุมออนไลน์</li><li><strong>และอื่นๆ:</strong> OneNote, Forms, Stream, Sway</li></ul><h3>วิธีเริ่มใช้งาน</h3><ol><li>เข้าสู่เว็บไซต์ <strong>portal.office.com</strong></li><li>ลงชื่อเข้าใช้ด้วยอีเมลมหาวิทยาลัย (@nbu.ac.th)</li><li>ดาวน์โหลดและติดตั้งโปรแกรมตามต้องการ</li></ol><p>หากมีปัญหาในการเข้าใช้งาน กรุณาติดต่อสำนักเทคโนโลยีสารสนเทศ หรือส่งคำร้องผ่านระบบ IT Service Request</p>",
+        "content_en": "<p>North Bangkok University has secured <strong>Microsoft 365 Education</strong> licenses for all staff and students at no cost.</p><h3>What You Get</h3><ul><li>Microsoft Office (Word, Excel, PowerPoint, Outlook) — up to 5 devices</li><li>OneDrive — 1 TB cloud storage</li><li>Microsoft Teams for online learning</li></ul><h3>How to Start</h3><ol><li>Visit portal.office.com</li><li>Sign in with your university email (@nbu.ac.th)</li><li>Download and install</li></ol>",
+        "image": "https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=800&q=80",
+        "date": "2026-02-08",
+        "category": "service",
+        "featured": true,
+        "status": "published"
+    }
+]

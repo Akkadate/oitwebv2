@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ข่าวสารทั้งหมด - สำนักเทคโนโลยีสารสนเทศ มหาวิทยาลัยนอร์ทกรุงเทพ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .page-header {
+            padding-top: 100px;
+            padding-bottom: 50px;
+            background: linear-gradient(135deg, var(--nbu-primary-dark) 0%, var(--nbu-primary) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://images.unsplash.com/photo-1504711434969-e33886168d6c?w=1920&q=80') center/cover no-repeat;
+            opacity: 0.08;
+        }
+        .page-header .container { position: relative; z-index: 2; }
+        .page-header .breadcrumb-nav a {
+            color: rgba(255,255,255,0.7); font-size: 14px;
+        }
+        .page-header .breadcrumb-nav a:hover { color: white; }
+        .page-header .breadcrumb-nav span { color: rgba(255,255,255,0.5); margin: 0 8px; }
+        .page-header h1 { font-size: 32px; color: white; margin-top: 15px; }
+
+        .news-list-section { padding: 50px 0 80px; }
+
+        /* Filter bar */
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+            align-items: center;
+        }
+        .filter-bar .filter-btn {
+            padding: 8px 20px;
+            border-radius: 50px;
+            border: 2px solid var(--nbu-border);
+            background: white;
+            color: var(--nbu-text);
+            font-size: 14px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: var(--nbu-transition);
+        }
+        .filter-bar .filter-btn:hover,
+        .filter-bar .filter-btn.active {
+            border-color: var(--nbu-primary);
+            background: var(--nbu-primary);
+            color: white;
+        }
+        .filter-bar .search-box {
+            margin-left: auto;
+            position: relative;
+        }
+        .filter-bar .search-box input {
+            padding: 8px 15px 8px 38px;
+            border: 2px solid var(--nbu-border);
+            border-radius: 50px;
+            font-size: 14px;
+            font-family: inherit;
+            width: 250px;
+            transition: var(--nbu-transition);
+        }
+        .filter-bar .search-box input:focus {
+            outline: none;
+            border-color: var(--nbu-primary);
+        }
+        .filter-bar .search-box i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--nbu-text-light);
+        }
+
+        /* News list card (horizontal) */
+        .news-list-card {
+            display: flex;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--nbu-shadow);
+            transition: var(--nbu-transition);
+            margin-bottom: 20px;
+        }
+        .news-list-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--nbu-shadow-hover);
+        }
+        .news-list-card .card-thumb {
+            width: 280px;
+            min-height: 180px;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        .news-list-card .card-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .news-list-card:hover .card-thumb img {
+            transform: scale(1.05);
+        }
+        .news-list-card .card-content {
+            padding: 22px 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex: 1;
+        }
+        .news-list-card .card-content .card-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 8px;
+            font-size: 13px;
+            color: var(--nbu-text-light);
+        }
+        .news-list-card .card-content .card-meta i {
+            color: var(--nbu-primary);
+            margin-right: 4px;
+        }
+        .news-list-card .card-content h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--nbu-dark);
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        .news-list-card .card-content h4 a {
+            color: inherit;
+        }
+        .news-list-card .card-content h4 a:hover {
+            color: var(--nbu-primary);
+        }
+        .news-list-card .card-content p {
+            font-size: 14px;
+            color: var(--nbu-text-light);
+            margin-bottom: 12px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .news-list-card .card-content .read-more {
+            color: var(--nbu-primary);
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .news-list-card .card-content .read-more:hover i {
+            transform: translateX(5px);
+        }
+        .news-list-card .card-content .read-more i {
+            transition: transform 0.3s ease;
+            margin-left: 5px;
+        }
+        .category-badge {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            background: var(--nbu-light-bg);
+            color: var(--nbu-primary);
+        }
+
+        /* Empty/loading */
+        .loading-state, .empty-state-page {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--nbu-text-light);
+        }
+        .loading-state i, .empty-state-page i {
+            font-size: 50px;
+            margin-bottom: 15px;
+            opacity: 0.3;
+        }
+
+        @media (max-width: 767px) {
+            .news-list-card {
+                flex-direction: column;
+            }
+            .news-list-card .card-thumb {
+                width: 100%;
+                min-height: 200px;
+            }
+            .filter-bar .search-box {
+                margin-left: 0;
+                width: 100%;
+            }
+            .filter-bar .search-box input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-nbu scrolled" id="mainNavbar">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <div class="brand-text">
+                    <span class="brand-main">สำนักเทคโนโลยีสารสนเทศ</span>
+                    <span class="brand-sub">มหาวิทยาลัยนอร์ทกรุงเทพ | North Bangkok University</span>
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">หน้าแรก</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/#services">บริการสำนักฯ</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/news.html">ข่าวสาร</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/#faq">คำถามที่พบบ่อย</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/#contact">ติดต่อเรา</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <div class="container">
+            <div class="breadcrumb-nav">
+                <a href="/"><i class="fas fa-home"></i> หน้าแรก</a>
+                <span>/</span>
+                <a href="/news.html" style="color:white;">ข่าวสารทั้งหมด</a>
+            </div>
+            <h1><i class="fas fa-newspaper me-2"></i> ข่าวสารสำนักเทคโนโลยีสารสนเทศ</h1>
+        </div>
+    </section>
+
+    <!-- NEWS LIST -->
+    <section class="news-list-section">
+        <div class="container">
+            <!-- Filter -->
+            <div class="filter-bar">
+                <button class="filter-btn active" data-filter="all">ทั้งหมด</button>
+                <button class="filter-btn" data-filter="training">อบรม</button>
+                <button class="filter-btn" data-filter="service">บริการ</button>
+                <button class="filter-btn" data-filter="maintenance">ปรับปรุงระบบ</button>
+                <button class="filter-btn" data-filter="security">ความปลอดภัย</button>
+                <button class="filter-btn" data-filter="general">ทั่วไป</button>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="ค้นหาข่าว...">
+                </div>
+            </div>
+
+            <!-- Loading -->
+            <div id="newsLoading" class="loading-state">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>กำลังโหลดข่าวสาร...</p>
+            </div>
+
+            <!-- News List -->
+            <div id="newsList"></div>
+
+            <!-- Empty -->
+            <div id="newsEmpty" class="empty-state-page" style="display:none;">
+                <i class="fas fa-search"></i>
+                <p>ไม่พบข่าวสารที่ค้นหา</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2569 สำนักเทคโนโลยีสารสนเทศ มหาวิทยาลัยนอร์ทกรุงเทพ</p>
+            </div>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="backToTop"><i class="fas fa-chevron-up"></i></button>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    var API = '/api';
+    var MONTHS_TH = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+    var allNews = [];
+    var currentFilter = 'all';
+
+    function formatDateTh(dateStr) {
+        var d = new Date(dateStr);
+        return d.getDate() + ' ' + MONTHS_TH[d.getMonth()] + ' ' + (d.getFullYear() + 543);
+    }
+
+    function getCategoryLabel(cat) {
+        var labels = { general:'ทั่วไป', training:'อบรม', service:'บริการ', maintenance:'ปรับปรุงระบบ', security:'ความปลอดภัย' };
+        return labels[cat] || cat || 'ทั่วไป';
+    }
+
+    function renderNews(items) {
+        var container = $('#newsList');
+        container.empty();
+
+        if (items.length === 0) {
+            $('#newsEmpty').show();
+            return;
+        }
+        $('#newsEmpty').hide();
+
+        items.forEach(function(item) {
+            container.append(
+                '<div class="news-list-card" data-category="' + item.category + '">' +
+                '  <div class="card-thumb">' +
+                '    <a href="/news-detail.html?id=' + item.id + '">' +
+                '      <img src="' + (item.image || 'https://via.placeholder.com/280x180') + '" alt="' + item.title_th + '">' +
+                '    </a>' +
+                '  </div>' +
+                '  <div class="card-content">' +
+                '    <div class="card-meta">' +
+                '      <span><i class="far fa-calendar-alt"></i> ' + formatDateTh(item.date) + '</span>' +
+                '      <span class="category-badge">' + getCategoryLabel(item.category) + '</span>' +
+                '    </div>' +
+                '    <h4><a href="/news-detail.html?id=' + item.id + '">' + item.title_th + '</a></h4>' +
+                '    <p>' + (item.excerpt_th || '') + '</p>' +
+                '    <a href="/news-detail.html?id=' + item.id + '" class="read-more">อ่านเพิ่มเติม <i class="fas fa-arrow-right"></i></a>' +
+                '  </div>' +
+                '</div>'
+            );
+        });
+    }
+
+    function filterNews() {
+        var search = $('#searchInput').val().toLowerCase().trim();
+        var filtered = allNews.filter(function(item) {
+            // Category filter
+            if (currentFilter !== 'all' && item.category !== currentFilter) return false;
+            // Search filter
+            if (search) {
+                var text = (item.title_th + ' ' + item.title_en + ' ' + item.excerpt_th + ' ' + item.excerpt_en).toLowerCase();
+                if (text.indexOf(search) === -1) return false;
+            }
+            return true;
+        });
+        renderNews(filtered);
+    }
+
+    $(document).ready(function() {
+        // Load all news
+        $.getJSON(API + '/news', function(data) {
+            allNews = data.filter(function(n) { return n.status === 'published'; });
+            allNews.sort(function(a, b) { return new Date(b.date) - new Date(a.date); });
+            $('#newsLoading').hide();
+            renderNews(allNews);
+        }).fail(function() {
+            $('#newsLoading').html('<i class="fas fa-exclamation-circle" style="color:#dc3545;"></i><p>ไม่สามารถโหลดข่าวสารได้</p>');
+        });
+
+        // Filter buttons
+        $('.filter-btn').on('click', function() {
+            $('.filter-btn').removeClass('active');
+            $(this).addClass('active');
+            currentFilter = $(this).data('filter');
+            filterNews();
+        });
+
+        // Search
+        var searchTimer;
+        $('#searchInput').on('input', function() {
+            clearTimeout(searchTimer);
+            searchTimer = setTimeout(filterNews, 300);
+        });
+
+        // Back to top
+        $(window).on('scroll', function() {
+            if ($(this).scrollTop() > 300) { $('#backToTop').addClass('show'); }
+            else { $('#backToTop').removeClass('show'); }
+        });
+        $('#backToTop').on('click', function() {
+            $('html, body').animate({ scrollTop: 0 }, 600);
+        });
+    });
+    </script>
+</body>
+</html>

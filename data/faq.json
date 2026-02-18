@@ -1,0 +1,47 @@
+[
+    {
+        "id": 1,
+        "question_th": "ลืมรหัสผ่านอีเมลมหาวิทยาลัย ต้องทำอย่างไร?",
+        "question_en": "What should I do if I forgot my university email password?",
+        "answer_th": "สามารถรีเซ็ตรหัสผ่านได้ด้วยตนเองผ่านระบบ Account Portal หรือติดต่อสำนักเทคโนโลยีสารสนเทศ โดยนำบัตรนักศึกษาหรือบัตรบุคลากรมาแสดง ณ เคาน์เตอร์บริการ ในเวลาทำการ",
+        "answer_en": "You can reset your password through the Account Portal or contact the IT Office with your student/staff ID card at the service counter during office hours.",
+        "order": 1,
+        "status": "published"
+    },
+    {
+        "id": 2,
+        "question_th": "จะเชื่อมต่อ Wi-Fi ของมหาวิทยาลัยได้อย่างไร?",
+        "question_en": "How do I connect to the university Wi-Fi?",
+        "answer_th": "เลือก SSID ชื่อ \"NBU-WiFi\" จากรายการเครือข่ายไร้สาย จากนั้นใช้ Username และ Password ที่ได้รับจากมหาวิทยาลัยในการเข้าสู่ระบบ หากมีปัญหาการเชื่อมต่อ กรุณาติดต่อสำนักเทคโนโลยีสารสนเทศ",
+        "answer_en": "Select SSID \"NBU-WiFi\" from the wireless network list, then log in with your university Username and Password. If you have connection issues, please contact the IT Office.",
+        "order": 2,
+        "status": "published"
+    },
+    {
+        "id": 3,
+        "question_th": "วิธีใช้งาน VPN เพื่อเข้าถึงระบบจากภายนอกมหาวิทยาลัย?",
+        "question_en": "How do I use VPN to access the system from outside the university?",
+        "answer_th": "ดาวน์โหลดโปรแกรม VPN Client ตามคู่มือที่สำนักฯ จัดเตรียมไว้ จากนั้นตั้งค่าตาม Server Address ที่กำหนด โดยใช้ Username/Password เดียวกับระบบอีเมลมหาวิทยาลัย",
+        "answer_en": "Download the VPN Client according to the IT Office manual, then configure using the provided Server Address with the same Username/Password as your university email.",
+        "order": 3,
+        "status": "published"
+    },
+    {
+        "id": 4,
+        "question_th": "สามารถใช้งาน Microsoft 365 ได้ฟรีหรือไม่?",
+        "question_en": "Can I use Microsoft 365 for free?",
+        "answer_th": "บุคลากรและนักศึกษาสามารถใช้งาน Microsoft 365 Education ได้ฟรี โดยลงทะเบียนผ่านอีเมลมหาวิทยาลัย (@nbu.ac.th) สามารถติดตั้งได้สูงสุด 5 อุปกรณ์ต่อบัญชี",
+        "answer_en": "Staff and students can use Microsoft 365 Education for free by registering with their university email (@nbu.ac.th). You can install on up to 5 devices per account.",
+        "order": 4,
+        "status": "published"
+    },
+    {
+        "id": 5,
+        "question_th": "พบอีเมลหลอกลวง (Phishing) ควรทำอย่างไร?",
+        "question_en": "What should I do if I encounter a phishing email?",
+        "answer_th": "ห้ามคลิกลิงก์หรือดาวน์โหลดไฟล์แนบจากอีเมลที่สงสัย ให้แจ้งสำนักเทคโนโลยีสารสนเทศทันทีผ่านระบบแจ้งปัญหา IT หรือโทรศัพท์ เพื่อให้ทีมงานดำเนินการตรวจสอบและป้องกัน",
+        "answer_en": "Do not click links or download attachments from suspicious emails. Report to the IT Office immediately through the IT problem report system or by phone.",
+        "order": 5,
+        "status": "published"
+    }
+]

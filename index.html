@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สำนักเทคโนโลยีสารสนเทศ - มหาวิทยาลัยนอร์ทกรุงเทพ</title>
+    <meta name="description" content="สำนักเทคโนโลยีสารสนเทศ มหาวิทยาลัยนอร์ทกรุงเทพ - Office of Information Technology, North Bangkok University">
+    <meta property="og:title" content="สำนักเทคโนโลยีสารสนเทศ - มหาวิทยาลัยนอร์ทกรุงเทพ">
+    <meta property="og:type" content="website">
+
+    <!-- Google Fonts - Sarabun (Thai) + Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Owl Carousel -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- ============================================
+         NAVBAR
+         ============================================ -->
+    <nav class="navbar navbar-expand-lg navbar-nbu" id="mainNavbar">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <div class="brand-text">
+                    <span class="brand-main">สำนักเทคโนโลยีสารสนเทศ</span>
+                    <span class="brand-sub">มหาวิทยาลัยนอร์ทกรุงเทพ | North Bangkok University</span>
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">หน้าแรก</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">บริการสำนักฯ</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#services"><i class="fas fa-user-shield"></i> ระบบบัญชีผู้ใช้งาน</a></li>
+                            <li><a class="dropdown-item" href="#services"><i class="fas fa-envelope"></i> อีเมลบุคลากร</a></li>
+                            <li><a class="dropdown-item" href="#services"><i class="fas fa-envelope-open-text"></i> อีเมลนักศึกษา</a></li>
+                            <li><a class="dropdown-item" href="#services"><i class="fab fa-microsoft"></i> Microsoft 365</a></li>
+                            <li><a class="dropdown-item" href="#services"><i class="fas fa-wifi"></i> บริการเครือข่าย / VPN</a></li>
+                            <li><a class="dropdown-item" href="#services"><i class="fas fa-print"></i> บริการพิมพ์เอกสาร</a></li>
+                            <li><a class="dropdown-item" href="#services"><i class="fas fa-desktop"></i> ระบบสารสนเทศ</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">ข้อมูลสำนักฯ</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#vision"><i class="fas fa-eye"></i> วิสัยทัศน์และพันธกิจ</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-users"></i> ผู้บริหารและบุคลากร</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-chart-bar"></i> รายงานประจำปี</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-bullseye"></i> แผนยุทธศาสตร์</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-shield-halved"></i> นโยบายความมั่นคงปลอดภัยไซเบอร์</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-lock"></i> นโยบายคุ้มครองข้อมูลส่วนบุคคล</a></li>
+                            <li><a class="dropdown-item" href="#contact"><i class="fas fa-phone"></i> ติดต่อเรา</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">ข่าวสาร</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#news"><i class="fas fa-newspaper"></i> ข่าวสารสำนักฯ</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-bullhorn"></i> ประกาศสำนักฯ</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-file-contract"></i> ประกาศจัดซื้อจัดจ้าง</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-briefcase"></i> ข่าวรับสมัครงาน</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#faq">คำถามที่พบบ่อย</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">แจ้งปัญหา</a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-bug"></i> แจ้งปัญหาการใช้งาน IT</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-fish"></i> แจ้งอีเมลหลอกลวง (Phishing)</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fas fa-headset"></i> ขอรับบริการ IT</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ============================================
+         HERO SECTION
+         ============================================ -->
+    <section class="hero-section" id="home">
+        <div class="hero-bg"></div>
+        <!-- Particles -->
+        <div class="hero-particles">
+            <div class="particle" style="left:10%;animation-delay:0s;animation-duration:12s;"></div>
+            <div class="particle" style="left:20%;animation-delay:2s;animation-duration:14s;"></div>
+            <div class="particle" style="left:35%;animation-delay:4s;animation-duration:10s;"></div>
+            <div class="particle" style="left:50%;animation-delay:1s;animation-duration:16s;"></div>
+            <div class="particle" style="left:65%;animation-delay:3s;animation-duration:11s;"></div>
+            <div class="particle" style="left:75%;animation-delay:5s;animation-duration:13s;"></div>
+            <div class="particle" style="left:85%;animation-delay:2.5s;animation-duration:15s;"></div>
+            <div class="particle" style="left:95%;animation-delay:0.5s;animation-duration:12s;"></div>
+            <div class="particle" style="left:5%;animation-delay:6s;animation-duration:14s;"></div>
+            <div class="particle" style="left:45%;animation-delay:3.5s;animation-duration:11s;"></div>
+            <div class="particle" style="left:55%;animation-delay:7s;animation-duration:13s;"></div>
+            <div class="particle" style="left:30%;animation-delay:1.5s;animation-duration:15s;"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-logo">
+                <i class="fas fa-server"></i>
+            </div>
+            <h1>สำนักเทคโนโลยีสารสนเทศ</h1>
+            <h2>มหาวิทยาลัยนอร์ทกรุงเทพ</h2>
+            <p>Office of Information Technology — North Bangkok University</p>
+            <div class="hero-buttons">
+                <a href="#services" class="btn-nbu-outline"><i class="fas fa-th-large me-2"></i>บริการทั้งหมด</a>
+                <a href="#contact" class="btn-nbu-outline"><i class="fas fa-phone me-2"></i>ติดต่อเรา</a>
+            </div>
+        </div>
+        <a href="#quick-access" class="hero-scroll-down">
+            <i class="fas fa-chevron-down"></i>
+        </a>
+    </section>
+
+    <!-- ============================================
+         QUICK ACCESS
+         ============================================ -->
+    <section class="quick-access" id="quick-access">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="quick-access-card fade-in">
+                        <div class="qa-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h5>แจ้งปัญหา IT</h5>
+                        <p>แจ้งปัญหาการใช้งานระบบ IT หรือแจ้งอีเมลหลอกลวง</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="quick-access-card fade-in">
+                        <div class="qa-icon">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h5>ขอรับบริการ IT</h5>
+                        <p>สร้างคำขอรับบริการด้านเทคโนโลยีสารสนเทศ</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="quick-access-card fade-in">
+                        <div class="qa-icon">
+                            <i class="fas fa-key"></i>
+                        </div>
+                        <h5>รหัสผ่านนักศึกษา</h5>
+                        <p>ตั้งรหัสผ่านสำหรับนักศึกษาใหม่ หรือเปลี่ยนรหัสผ่าน</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="quick-access-card fade-in">
+                        <div class="qa-icon">
+                            <i class="fas fa-wifi"></i>
+                        </div>
+                        <h5>เครือข่าย Wi-Fi</h5>
+                        <p>ตั้งค่าเชื่อมต่อเครือข่ายไร้สายภายในมหาวิทยาลัย</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         ANNOUNCEMENT BANNER
+         ============================================ -->
+    <section class="announcement-banner">
+        <div class="container">
+            <div class="marquee-text">
+                <span class="badge-announce"><i class="fas fa-bullhorn me-1"></i> ประกาศ</span>
+                <span id="announcementText">แจ้งการใช้งานอีเมล สำหรับบุคลากรและนักศึกษา มหาวิทยาลัยนอร์ทกรุงเทพ — กรุณาระวังอีเมลหลอกลวง (Phishing) หากพบเห็นกรุณาแจ้งสำนักเทคโนโลยีสารสนเทศทันที</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FEATURED NEWS CAROUSEL
+         ============================================ -->
+    <section class="featured-news section-padding" id="featured-news">
+        <div class="container">
+            <div class="section-title">
+                <h2>ข่าวเด่น</h2>
+                <p>ข่าวสารและกิจกรรมที่สำคัญจากสำนักเทคโนโลยีสารสนเทศ</p>
+            </div>
+            <div class="owl-carousel" id="featuredCarousel">
+                <!-- Dynamic content loaded from API -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         NEWS GRID
+         ============================================ -->
+    <section class="section-padding" id="news">
+        <div class="container">
+            <div class="section-title">
+                <h2>ข่าวสารสำนักฯ</h2>
+                <p>ติดตามข่าวสารล่าสุดจากสำนักเทคโนโลยีสารสนเทศ</p>
+            </div>
+            <div class="row g-4" id="newsGrid">
+                <!-- Dynamic content loaded from API -->
+            </div>
+            <div class="text-center mt-4">
+                <a href="/news.html" class="btn-nbu"><i class="fas fa-newspaper me-2"></i>ดูข่าวทั้งหมด</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         VISION / PARALLAX
+         ============================================ -->
+    <section class="vision-section" id="vision">
+        <div class="container">
+            <div class="vision-content">
+                <h2>วิสัยทัศน์และพันธกิจ</h2>
+                <p>
+                    "เป็นศูนย์กลางบริการเทคโนโลยีสารสนเทศที่ทันสมัย เพื่อสนับสนุนการเรียนการสอน
+                    การวิจัย และการบริหารจัดการของมหาวิทยาลัยนอร์ทกรุงเทพ
+                    สู่การเป็นมหาวิทยาลัยดิจิทัลอย่างเต็มรูปแบบ"
+                </p>
+                <div class="row vision-stats mt-5">
+                    <div class="col-lg-3 col-6">
+                        <div class="vision-stat-item">
+                            <span class="stat-number" data-count="99.9">99.9%</span>
+                            <span class="stat-label">Uptime ระบบเครือข่าย</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-6">
+                        <div class="vision-stat-item">
+                            <span class="stat-number" data-count="10000">10,000+</span>
+                            <span class="stat-label">ผู้ใช้งานในระบบ</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-6">
+                        <div class="vision-stat-item">
+                            <span class="stat-number" data-count="50">50+</span>
+                            <span class="stat-label">บริการด้าน IT</span>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-6">
+                        <div class="vision-stat-item">
+                            <span class="stat-number" data-count="24">24/7</span>
+                            <span class="stat-label">ระบบพร้อมใช้งาน</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         SERVICES
+         ============================================ -->
+    <section class="services-section section-padding" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>บริการสำนักฯ</h2>
+                <p>บริการด้านเทคโนโลยีสารสนเทศสำหรับบุคลากรและนักศึกษา</p>
+            </div>
+            <div class="row g-4" id="servicesGrid">
+                <!-- Dynamic content loaded from API -->
+            </div>
+            <div class="text-center mt-4">
+                <a href="/services.html" class="btn-nbu"><i class="fas fa-th-large me-2"></i>ดูบริการทั้งหมด</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         DOCUMENTS / E-BOOKS
+         ============================================ -->
+    <section class="documents-section section-padding" id="documents">
+        <div class="container">
+            <div class="section-title">
+                <h2>เอกสารและสิ่งพิมพ์</h2>
+                <p>เอกสาร คู่มือ และแผนงานที่เกี่ยวข้อง</p>
+            </div>
+            <div class="row g-4" id="documentsGrid">
+                <!-- Dynamic content loaded from API -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FAQ
+         ============================================ -->
+    <section class="faq-section section-padding" id="faq">
+        <div class="container">
+            <div class="section-title">
+                <h2>คำถามที่พบบ่อย</h2>
+                <p>FAQ - คำถามและคำตอบที่พบบ่อยเกี่ยวกับบริการด้าน IT</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8" id="faqList">
+                    <!-- Dynamic content loaded from API -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         CONTACT
+         ============================================ -->
+    <section class="contact-section section-padding" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>ติดต่อเรา</h2>
+                <p>สำนักเทคโนโลยีสารสนเทศ มหาวิทยาลัยนอร์ทกรุงเทพ</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-5">
+                    <div class="contact-info-card">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h6>ที่อยู่</h6>
+                                <p>มหาวิทยาลัยนอร์ทกรุงเทพ<br>เลขที่ 6/999 ซอยพหลโยธิน 52<br>ถนนพหลโยธิน แขวงคลองถนน<br>เขตสายไหม กรุงเทพฯ 10220</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <h6>โทรศัพท์</h6>
+                                <p>02-972-7200 ต่อ 220</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <h6>อีเมล</h6>
+                                <p>oit.nbu@northbkk.ac.th</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-clock"></i>
+                            <div>
+                                <h6>เวลาทำการ</h6>
+                                <p>ทุกวัน เวลา 08.30 - 17.30 น.</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fab fa-line"></i>
+                            <div>
+                                <h6>LINE</h6>
+                                <p><a href="https://lin.ee/DuKzeOE" target="_blank" style="color:inherit;text-decoration:none;">@misnbu</a></p>
+                            </div>
+                        </div>
+                        <div class="social-links mt-3">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://lin.ee/DuKzeOE" target="_blank"><i class="fab fa-line"></i></a>
+                            <a href="#"><i class="fas fa-globe"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <div class="map-wrapper">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d16844.079148007004!2d100.61857008323159!3d13.891199382567201!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30e2829efd43fc37%3A0xeefe9b5160df7293!2z4Lih4Lir4Liy4Lin4Li04LiX4Lii4Liy4Lil4Lix4Lii4LiZ4Lit4Lij4LmM4LiX4LiB4Lij4Li44LiH4LmA4LiX4LieIOC4p-C4tOC4l-C4ouC4suC5gOC4guC4leC4quC4sOC4nuC4suC4meC5g-C4q-C4oeC5iA!5e1!3m2!1sth!2sth!4v1771339154593!5m2!1sth!2sth" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="footer-logo">
+                        <div class="footer-brand-text">
+                            สำนักเทคโนโลยีสารสนเทศ<br>
+                            <small style="font-weight:400;font-size:13px;">มหาวิทยาลัยนอร์ทกรุงเทพ</small>
+                        </div>
+                    </div>
+                    <p>
+                        Office of Information Technology<br>
+                        North Bangkok University<br><br>
+                        เลขที่ 6/999 ซอยพหลโยธิน 52<br>
+                        ถนนพหลโยธิน แขวงคลองถนน<br>
+                        เขตสายไหม กรุงเทพฯ 10220
+                    </p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="https://lin.ee/DuKzeOE" target="_blank"><i class="fab fa-line"></i></a>
+                        <a href="#"><i class="fas fa-globe"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5>เมนูหลัก</h5>
+                    <ul class="footer-links">
+                        <li><a href="#home"><i class="fas fa-chevron-right"></i> หน้าแรก</a></li>
+                        <li><a href="#services"><i class="fas fa-chevron-right"></i> บริการสำนักฯ</a></li>
+                        <li><a href="#vision"><i class="fas fa-chevron-right"></i> วิสัยทัศน์และพันธกิจ</a></li>
+                        <li><a href="#news"><i class="fas fa-chevron-right"></i> ข่าวสารสำนักฯ</a></li>
+                        <li><a href="#documents"><i class="fas fa-chevron-right"></i> เอกสารและสิ่งพิมพ์</a></li>
+                        <li><a href="#faq"><i class="fas fa-chevron-right"></i> คำถามที่พบบ่อย</a></li>
+                        <li><a href="#contact"><i class="fas fa-chevron-right"></i> ติดต่อเรา</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <h5>ลิงก์ที่เกี่ยวข้อง</h5>
+                    <ul class="footer-links">
+                        <li><a href="https://www.northbkk.ac.th/" target="_blank"><i class="fas fa-chevron-right"></i> มหาวิทยาลัยนอร์ทกรุงเทพ</a></li>
+                        <li><a href="https://reg.northbkk.ac.th/" target="_blank"><i class="fas fa-chevron-right"></i> ระบบบริการการศึกษา</a></li>
+                        <li><a href="https://elearning.northbkk.ac.th/" target="_blank"><i class="fas fa-chevron-right"></i> ระบบ E-Learning</a></li>
+                        <li><a href="https://library.northbkk.ac.th/" target="_blank"><i class="fas fa-chevron-right"></i> ห้องสมุดมหาวิทยาลัย</a></li>
+                        <li><a href="https://research.northbkk.ac.th/" target="_blank"><i class="fas fa-chevron-right"></i> สำนักวิจัยและพัฒนา</a></li>
+                        <li><a href="#"><i class="fas fa-chevron-right"></i> ข่าวรับสมัครงาน</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2569 สำนักเทคโนโลยีสารสนเทศ มหาวิทยาลัยนอร์ทกรุงเทพ | Office of Information Technology, North Bangkok University</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- ============================================
+         SCRIPTS
+         ============================================ -->
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <!-- Bootstrap 5 -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Owl Carousel -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <!-- Custom JS -->
+    <script src="js/main.js"></script>
+</body>
+</html>

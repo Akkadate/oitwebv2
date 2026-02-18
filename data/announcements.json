@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "title_th": "แจ้งการใช้งานอีเมล สำหรับบุคลากรและนักศึกษา",
+        "title_en": "Email Usage Notice for Staff and Students",
+        "content_th": "กรุณาระวังอีเมลหลอกลวง (Phishing) หากพบเห็นกรุณาแจ้งสำนักเทคโนโลยีสารสนเทศทันที",
+        "content_en": "Please beware of phishing emails. If you encounter any, please report to IT Office immediately.",
+        "priority": "high",
+        "status": "active",
+        "date": "2026-02-17"
+    },
+    {
+        "id": 2,
+        "title_th": "ปิดปรับปรุงระบบลงทะเบียนชั่วคราว",
+        "title_en": "Temporary Registration System Maintenance",
+        "content_th": "ระบบลงทะเบียนจะปิดปรับปรุงชั่วคราวในวันเสาร์ที่ 22 ก.พ. 2569 เวลา 00:00-06:00 น.",
+        "content_en": "Registration system will be temporarily down on Saturday, Feb 22, 2026 from 00:00-06:00.",
+        "priority": "medium",
+        "status": "active",
+        "date": "2026-02-16"
+    }
+]

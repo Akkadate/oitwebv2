@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บริการทั้งหมด - สำนักเทคโนโลยีสารสนเทศ มหาวิทยาลัยนอร์ทกรุงเทพ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .page-header {
+            padding-top: 100px;
+            padding-bottom: 50px;
+            background: linear-gradient(135deg, var(--nbu-primary-dark) 0%, var(--nbu-primary) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1920&q=80') center/cover no-repeat;
+            opacity: 0.08;
+        }
+        .page-header .container { position: relative; z-index: 2; }
+        .page-header .breadcrumb-nav a {
+            color: rgba(255,255,255,0.7); font-size: 14px;
+        }
+        .page-header .breadcrumb-nav a:hover { color: white; }
+        .page-header .breadcrumb-nav span { color: rgba(255,255,255,0.5); margin: 0 8px; }
+        .page-header h1 { font-size: 32px; color: white; margin-top: 15px; }
+
+        .services-list-section { padding: 50px 0 80px; }
+
+        /* Filter bar */
+        .filter-bar {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+            align-items: center;
+        }
+        .filter-bar .filter-btn {
+            padding: 8px 20px;
+            border-radius: 50px;
+            border: 2px solid var(--nbu-border);
+            background: white;
+            color: var(--nbu-text);
+            font-size: 14px;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: var(--nbu-transition);
+        }
+        .filter-bar .filter-btn:hover,
+        .filter-bar .filter-btn.active {
+            border-color: var(--nbu-primary);
+            background: var(--nbu-primary);
+            color: white;
+        }
+        .filter-bar .search-box {
+            margin-left: auto;
+            position: relative;
+        }
+        .filter-bar .search-box input {
+            padding: 8px 15px 8px 38px;
+            border: 2px solid var(--nbu-border);
+            border-radius: 50px;
+            font-size: 14px;
+            font-family: inherit;
+            width: 250px;
+            transition: var(--nbu-transition);
+        }
+        .filter-bar .search-box input:focus {
+            outline: none;
+            border-color: var(--nbu-primary);
+        }
+        .filter-bar .search-box i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--nbu-text-light);
+        }
+
+        /* Service grid card */
+        .service-grid-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px 25px;
+            text-align: center;
+            box-shadow: var(--nbu-shadow);
+            transition: var(--nbu-transition);
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+        .service-grid-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--nbu-primary), var(--nbu-secondary));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        .service-grid-card:hover::before { transform: scaleX(1); }
+        .service-grid-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--nbu-shadow-hover);
+        }
+        .service-grid-card .service-icon-lg {
+            width: 70px; height: 70px;
+            border-radius: 50%;
+            background: var(--nbu-light-bg);
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 18px;
+            font-size: 28px;
+            color: var(--nbu-primary);
+            transition: var(--nbu-transition);
+        }
+        .service-grid-card:hover .service-icon-lg {
+            background: var(--nbu-primary);
+            color: white;
+        }
+        .service-grid-card h5 {
+            font-size: 17px; font-weight: 700;
+            color: var(--nbu-dark); margin-bottom: 10px;
+        }
+        .service-grid-card p {
+            font-size: 14px; color: var(--nbu-text-light);
+            margin-bottom: 15px; line-height: 1.6;
+        }
+        .service-grid-card .detail-link {
+            color: var(--nbu-primary); font-weight: 600; font-size: 14px;
+        }
+        .service-grid-card .detail-link:hover i { transform: translateX(5px); }
+        .service-grid-card .detail-link i { transition: transform 0.3s ease; margin-left: 5px; }
+
+        /* Loading/empty */
+        .loading-state, .empty-state-page {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--nbu-text-light);
+        }
+        .loading-state i, .empty-state-page i {
+            font-size: 50px; margin-bottom: 15px; opacity: 0.3;
+        }
+
+        @media (max-width: 767px) {
+            .filter-bar .search-box { margin-left: 0; width: 100%; }
+            .filter-bar .search-box input { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-nbu scrolled" id="mainNavbar">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <div class="brand-text">
+                    <span class="brand-main">สำนักเทคโนโลยีสารสนเทศ</span>
+                    <span class="brand-sub">มหาวิทยาลัยนอร์ทกรุงเทพ | North Bangkok University</span>
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">หน้าแรก</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/services.html">บริการสำนักฯ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/news.html">ข่าวสาร</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/#faq">คำถามที่พบบ่อย</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/#contact">ติดต่อเรา</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <div class="container">
+            <div class="breadcrumb-nav">
+                <a href="/"><i class="fas fa-home"></i> หน้าแรก</a>
+                <span>/</span>
+                <a href="/services.html" style="color:white;">บริการทั้งหมด</a>
+            </div>
+            <h1><i class="fas fa-th-large me-2"></i> บริการสำนักเทคโนโลยีสารสนเทศ</h1>
+        </div>
+    </section>
+
+    <!-- SERVICES LIST -->
+    <section class="services-list-section">
+        <div class="container">
+            <!-- Filter -->
+            <div class="filter-bar">
+                <button class="filter-btn active" data-filter="all">ทั้งหมด</button>
+                <button class="filter-btn" data-filter="account">บัญชีผู้ใช้</button>
+                <button class="filter-btn" data-filter="email">อีเมล</button>
+                <button class="filter-btn" data-filter="software">ซอฟต์แวร์</button>
+                <button class="filter-btn" data-filter="network">เครือข่าย</button>
+                <button class="filter-btn" data-filter="facility">สิ่งอำนวยความสะดวก</button>
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="ค้นหาบริการ...">
+                </div>
+            </div>
+
+            <!-- Loading -->
+            <div id="servicesLoading" class="loading-state">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>กำลังโหลดบริการ...</p>
+            </div>
+
+            <!-- Services Grid -->
+            <div class="row g-4" id="servicesGrid"></div>
+
+            <!-- Empty -->
+            <div id="servicesEmpty" class="empty-state-page" style="display:none;">
+                <i class="fas fa-search"></i>
+                <p>ไม่พบบริการที่ค้นหา</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2569 สำนักเทคโนโลยีสารสนเทศ มหาวิทยาลัยนอร์ทกรุงเทพ</p>
+            </div>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="backToTop"><i class="fas fa-chevron-up"></i></button>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    var API = '/api';
+    var allServices = [];
+    var currentFilter = 'all';
+
+    function renderServices(items) {
+        var container = $('#servicesGrid');
+        container.empty();
+
+        if (items.length === 0) {
+            $('#servicesEmpty').show();
+            return;
+        }
+        $('#servicesEmpty').hide();
+
+        items.forEach(function(item) {
+            container.append(
+                '<div class="col-lg-3 col-md-4 col-sm-6" data-category="' + item.category + '">' +
+                '  <a href="/service-detail.html?id=' + item.id + '" style="text-decoration:none;">' +
+                '    <div class="service-grid-card">' +
+                '      <div class="service-icon-lg"><i class="' + (item.icon || 'fas fa-cog') + '"></i></div>' +
+                '      <h5>' + item.title_th + '</h5>' +
+                '      <p>' + (item.description_th || '') + '</p>' +
+                '      <span class="detail-link">รายละเอียด <i class="fas fa-arrow-right"></i></span>' +
+                '    </div>' +
+                '  </a>' +
+                '</div>'
+            );
+        });
+    }
+
+    function filterServices() {
+        var search = $('#searchInput').val().toLowerCase().trim();
+        var filtered = allServices.filter(function(item) {
+            if (currentFilter !== 'all' && item.category !== currentFilter) return false;
+            if (search) {
+                var text = (item.title_th + ' ' + item.title_en + ' ' + item.description_th + ' ' + item.description_en).toLowerCase();
+                if (text.indexOf(search) === -1) return false;
+            }
+            return true;
+        });
+        renderServices(filtered);
+    }
+
+    $(document).ready(function() {
+        $.getJSON(API + '/services', function(data) {
+            allServices = data.filter(function(s) { return s.status === 'published'; });
+            allServices.sort(function(a, b) { return (a.order || 0) - (b.order || 0); });
+            $('#servicesLoading').hide();
+            renderServices(allServices);
+        }).fail(function() {
+            $('#servicesLoading').html('<i class="fas fa-exclamation-circle" style="color:#dc3545;"></i><p>ไม่สามารถโหลดบริการได้</p>');
+        });
+
+        $('.filter-btn').on('click', function() {
+            $('.filter-btn').removeClass('active');
+            $(this).addClass('active');
+            currentFilter = $(this).data('filter');
+            filterServices();
+        });
+
+        var searchTimer;
+        $('#searchInput').on('input', function() {
+            clearTimeout(searchTimer);
+            searchTimer = setTimeout(filterServices, 300);
+        });
+
+        $(window).on('scroll', function() {
+            if ($(this).scrollTop() > 300) { $('#backToTop').addClass('show'); }
+            else { $('#backToTop').removeClass('show'); }
+        });
+        $('#backToTop').on('click', function() {
+            $('html, body').animate({ scrollTop: 0 }, 600);
+        });
+    });
+    </script>
+</body>
+</html>

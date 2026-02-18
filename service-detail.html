@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายละเอียดบริการ - สำนักเทคโนโลยีสารสนเทศ มหาวิทยาลัยนอร์ทกรุงเทพ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .page-header {
+            padding-top: 100px;
+            padding-bottom: 50px;
+            background: linear-gradient(135deg, var(--nbu-primary-dark) 0%, var(--nbu-primary) 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        .page-header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1920&q=80') center/cover no-repeat;
+            opacity: 0.08;
+        }
+        .page-header .container { position: relative; z-index: 2; }
+        .page-header .breadcrumb-nav a {
+            color: rgba(255,255,255,0.7); font-size: 14px;
+        }
+        .page-header .breadcrumb-nav a:hover { color: white; }
+        .page-header .breadcrumb-nav span { color: rgba(255,255,255,0.5); margin: 0 8px; }
+        .page-header h1 { font-size: 28px; color: white; margin-top: 15px; }
+        .page-header .service-icon-header {
+            width: 60px; height: 60px; border-radius: 50%;
+            background: rgba(255,255,255,0.15);
+            display: inline-flex; align-items: center; justify-content: center;
+            font-size: 24px; color: white; margin-right: 15px; vertical-align: middle;
+        }
+
+        .service-detail-section { padding: 50px 0 80px; }
+
+        .service-content-card {
+            background: white;
+            border-radius: 12px;
+            padding: 35px 40px;
+            box-shadow: var(--nbu-shadow);
+        }
+        .service-content-card .service-body {
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--nbu-text);
+        }
+        .service-content-card .service-body h3 { font-size: 22px; font-weight: 700; color: var(--nbu-dark); margin-bottom: 15px; }
+        .service-content-card .service-body h4 { font-size: 18px; font-weight: 700; color: var(--nbu-primary); margin-top: 25px; margin-bottom: 10px; }
+        .service-content-card .service-body ul { padding-left: 20px; }
+        .service-content-card .service-body li { margin-bottom: 6px; }
+        .service-content-card .service-body p { margin-bottom: 12px; }
+
+        .service-cover-img {
+            width: 100%; border-radius: 12px;
+            margin-bottom: 25px; max-height: 350px;
+            object-fit: cover;
+        }
+
+        /* Sidebar */
+        .sidebar-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: var(--nbu-shadow);
+            margin-bottom: 20px;
+        }
+        .sidebar-card h5 {
+            font-size: 16px; font-weight: 700;
+            color: var(--nbu-dark); margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--nbu-light-bg);
+        }
+        .sidebar-card .other-service-item {
+            display: flex; align-items: center; gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .sidebar-card .other-service-item:last-child { border-bottom: none; }
+        .sidebar-card .other-service-item .os-icon {
+            width: 40px; height: 40px; border-radius: 50%;
+            background: var(--nbu-light-bg);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px; color: var(--nbu-primary);
+            flex-shrink: 0;
+        }
+        .sidebar-card .other-service-item a {
+            font-size: 14px; font-weight: 600; color: var(--nbu-dark);
+        }
+        .sidebar-card .other-service-item a:hover { color: var(--nbu-primary); }
+
+        .contact-sidebar-item { display: flex; gap: 10px; margin-bottom: 12px; font-size: 14px; }
+        .contact-sidebar-item i { color: var(--nbu-primary); margin-top: 3px; }
+
+        /* Loading */
+        .loading-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--nbu-text-light);
+        }
+        .loading-state i { font-size: 50px; margin-bottom: 15px; opacity: 0.3; }
+
+        @media (max-width: 767px) {
+            .service-content-card { padding: 25px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-nbu scrolled" id="mainNavbar">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <div class="brand-text">
+                    <span class="brand-main">สำนักเทคโนโลยีสารสนเทศ</span>
+                    <span class="brand-sub">มหาวิทยาลัยนอร์ทกรุงเทพ | North Bangkok University</span>
+                </div>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">หน้าแรก</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/services.html">บริการสำนักฯ</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/news.html">ข่าวสาร</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/#faq">คำถามที่พบบ่อย</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/#contact">ติดต่อเรา</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- PAGE HEADER -->
+    <section class="page-header" id="serviceHeader">
+        <div class="container">
+            <div class="breadcrumb-nav">
+                <a href="/"><i class="fas fa-home"></i> หน้าแรก</a>
+                <span>/</span>
+                <a href="/services.html">บริการทั้งหมด</a>
+                <span>/</span>
+                <a href="#" style="color:white;" id="serviceTitle2">กำลังโหลด...</a>
+            </div>
+            <h1>
+                <span class="service-icon-header" id="serviceIconHeader"><i class="fas fa-cog"></i></span>
+                <span id="serviceTitle">กำลังโหลด...</span>
+            </h1>
+        </div>
+    </section>
+
+    <!-- SERVICE DETAIL -->
+    <section class="service-detail-section">
+        <div class="container">
+            <div id="serviceLoading" class="loading-state">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>กำลังโหลดรายละเอียดบริการ...</p>
+            </div>
+
+            <div class="row g-4" id="serviceContent" style="display:none;">
+                <div class="col-lg-8">
+                    <div class="service-content-card">
+                        <img id="serviceCover" class="service-cover-img" style="display:none;" alt="">
+                        <div class="service-body" id="serviceBody"></div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <!-- Contact sidebar -->
+                    <div class="sidebar-card">
+                        <h5><i class="fas fa-headset me-2"></i>ต้องการความช่วยเหลือ?</h5>
+                        <div class="contact-sidebar-item">
+                            <i class="fas fa-phone"></i>
+                            <span>02-972-7200 ต่อ 220</span>
+                        </div>
+                        <div class="contact-sidebar-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>oit.nbu@northbkk.ac.th</span>
+                        </div>
+                        <div class="contact-sidebar-item">
+                            <i class="fas fa-clock"></i>
+                            <span>ทุกวัน 08.30 - 17.30 น.</span>
+                        </div>
+                    </div>
+                    <!-- Other services -->
+                    <div class="sidebar-card">
+                        <h5><i class="fas fa-th-large me-2"></i>บริการอื่นๆ</h5>
+                        <div id="otherServices"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-bottom">
+            <div class="container">
+                <p>&copy; 2569 สำนักเทคโนโลยีสารสนเทศ มหาวิทยาลัยนอร์ทกรุงเทพ</p>
+            </div>
+        </div>
+    </footer>
+
+    <button class="back-to-top" id="backToTop"><i class="fas fa-chevron-up"></i></button>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    var API = '/api';
+
+    function getServiceId() {
+        var params = new URLSearchParams(window.location.search);
+        return params.get('id');
+    }
+
+    $(document).ready(function() {
+        var serviceId = getServiceId();
+        if (!serviceId) {
+            $('#serviceLoading').html('<i class="fas fa-exclamation-circle" style="color:#dc3545;"></i><p>ไม่พบบริการที่ต้องการ</p>');
+            return;
+        }
+
+        // Load service detail
+        $.getJSON(API + '/services/' + serviceId, function(service) {
+            document.title = service.title_th + ' - สำนักเทคโนโลยีสารสนเทศ';
+            $('#serviceTitle').text(service.title_th);
+            $('#serviceTitle2').text(service.title_th);
+            $('#serviceIconHeader').html('<i class="' + (service.icon || 'fas fa-cog') + '"></i>');
+
+            // Cover image
+            if (service.image) {
+                $('#serviceCover').attr('src', service.image).attr('alt', service.title_th).show();
+            }
+
+            // Content
+            var body = service.content_th || ('<h3>' + service.title_th + '</h3><p>' + (service.description_th || '') + '</p>');
+            $('#serviceBody').html(body);
+
+            $('#serviceLoading').hide();
+            $('#serviceContent').show();
+        }).fail(function() {
+            $('#serviceLoading').html('<i class="fas fa-exclamation-circle" style="color:#dc3545;"></i><p>ไม่พบบริการที่ต้องการ</p>');
+        });
+
+        // Load other services for sidebar
+        $.getJSON(API + '/services', function(data) {
+            var published = data.filter(function(s) { return s.status === 'published' && s.id !== parseInt(serviceId); });
+            published.sort(function(a, b) { return (a.order || 0) - (b.order || 0); });
+            var sidebar = published.slice(0, 6);
+            var container = $('#otherServices');
+
+            sidebar.forEach(function(item) {
+                container.append(
+                    '<div class="other-service-item">' +
+                    '  <div class="os-icon"><i class="' + (item.icon || 'fas fa-cog') + '"></i></div>' +
+                    '  <a href="/service-detail.html?id=' + item.id + '">' + item.title_th + '</a>' +
+                    '</div>'
+                );
+            });
+        });
+
+        // Back to top
+        $(window).on('scroll', function() {
+            if ($(this).scrollTop() > 300) { $('#backToTop').addClass('show'); }
+            else { $('#backToTop').removeClass('show'); }
+        });
+        $('#backToTop').on('click', function() {
+            $('html, body').animate({ scrollTop: 0 }, 600);
+        });
+    });
+    </script>
+</body>
+</html>
