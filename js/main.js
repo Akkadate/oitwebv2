@@ -58,22 +58,24 @@ $(document).ready(function () {
         featured.forEach(function (item) {
             html +=
                 '<div class="news-slide">' +
-                '  <img src="' + (item.image || 'https://via.placeholder.com/800x350') + '" alt="' + item.title_th + '">' +
-                '  <div class="news-overlay">' +
-                '    <span class="news-tag">' + getCategoryTag(item.category) + '</span>' +
-                '    <h4>' + item.title_th + '</h4>' +
-                '    <p>' + (item.excerpt_th || '').substring(0, 100) + '</p>' +
-                '  </div>' +
+                '  <a href="/news-detail.html?id=' + item.id + '">' +
+                '    <img src="' + (item.image || 'https://via.placeholder.com/800x350') + '" alt="' + item.title_th + '">' +
+                '    <div class="news-overlay">' +
+                '      <span class="news-tag">' + getCategoryTag(item.category) + '</span>' +
+                '      <h4>' + item.title_th + '</h4>' +
+                '      <p>' + (item.excerpt_th || '').substring(0, 100) + '</p>' +
+                '    </div>' +
+                '  </a>' +
                 '</div>';
         });
         container.html(html);
 
         container.owlCarousel({
-            loop: true,
+            loop: featured.length > 3,
             margin: 20,
-            nav: true,
-            dots: true,
-            autoplay: true,
+            nav: featured.length > 1,
+            dots: featured.length > 1,
+            autoplay: featured.length > 1,
             autoplayTimeout: 4000,
             autoplayHoverPause: true,
             smartSpeed: 600,
@@ -83,14 +85,14 @@ $(document).ready(function () {
             ],
             responsive: {
                 0: { items: 1 },
-                768: { items: 2 },
-                1024: { items: 3 }
+                768: { items: Math.min(featured.length, 2) },
+                1024: { items: Math.min(featured.length, 3) }
             }
         });
     }
 
     function renderNewsGrid(data) {
-        var published = data.filter(function (n) { return n.status === 'published'; });
+        var published = data.filter(function (n) { return n.status === 'published' && !n.featured; });
         published.sort(function (a, b) { return new Date(b.date) - new Date(a.date); });
         var latest = published.slice(0, 3);
 
