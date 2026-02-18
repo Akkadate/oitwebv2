@@ -145,13 +145,13 @@ app.post('/api/change-password', authMiddleware, async (req, res) => {
 // ============================================
 // GENERIC CRUD API FACTORY (PostgreSQL)
 // ============================================
-function createCrudRoutes(tableName) {
+function createCrudRoutes(tableName, orderBy = 'id') {
     const router = express.Router();
 
     // GET all (public)
     router.get('/', apiCache(60), async (req, res) => {
         try {
-            const result = await pool.query(`SELECT * FROM ${tableName} ORDER BY id`);
+            const result = await pool.query(`SELECT * FROM ${tableName} ORDER BY ${orderBy}`);
             res.json(result.rows);
         } catch (e) {
             res.status(500).json({ error: e.message });
@@ -230,8 +230,8 @@ function createCrudRoutes(tableName) {
 }
 
 // Register CRUD routes
-app.use('/api/news', createCrudRoutes('news'));
-app.use('/api/announcements', createCrudRoutes('announcements'));
+app.use('/api/news', createCrudRoutes('news', 'id DESC'));
+app.use('/api/announcements', createCrudRoutes('announcements', 'id DESC'));
 app.use('/api/documents', createCrudRoutes('documents'));
 app.use('/api/faq', createCrudRoutes('faq'));
 app.use('/api/services', createCrudRoutes('services'));
