@@ -74,11 +74,6 @@ node migrate.js
 
 URL: `/admin`
 
-| ข้อมูล | ค่า |
-|--------|-----|
-| Username | `admin` |
-| Password | `password` |
-
 ### ฟีเจอร์ Admin
 
 - **Dashboard** — สถิติรวมทุกหมวด
